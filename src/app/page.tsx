@@ -1,9 +1,23 @@
+"use client";
+
 import { GalleryVerticalEnd } from "lucide-react"
 
 import { LoginForm } from "@/components/ui/login-form"
 import { SignUp } from "@/components/ui/sign-up"
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoginPage() {
+  const router = useRouter();
+  // TODO: Replace with actual authentication check
+  const isLoggedIn = false; // Replace with real auth state
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/shopping-list");
+    }
+  }, [isLoggedIn, router]);
+
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">

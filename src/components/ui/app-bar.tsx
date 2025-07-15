@@ -1,0 +1,33 @@
+"use client";
+
+import { useSession, signOut } from "@/lib/auth-client";
+import { Button } from "@/components/ui/button";
+
+export function AppBar() {
+  const { data: session } = useSession();
+  const user = session?.user;
+
+  return (
+    <header className="w-full flex items-center justify-end gap-4 px-6 py-3 bg-black text-primary-foreground">
+      <span className="flex items-center gap-2">
+        {user?.image ? (
+          <img
+            src={user.image}
+            alt={user.name || "User"}
+            className="w-8 h-8 rounded-full border"
+          />
+        ) : (
+          <div className="w-8 h-8 rounded-full border bg-muted" />
+        )}
+        <span className="font-medium">
+          {user?.name || user?.email || "Guest"}
+        </span>
+      </span>
+      {user ? (
+        <Button size="sm" variant="outline" onClick={() => signOut()}>
+          Sign Out
+        </Button>
+      ) : null}
+    </header>
+  );
+} 
