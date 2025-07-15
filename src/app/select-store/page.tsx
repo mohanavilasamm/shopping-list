@@ -59,8 +59,10 @@ export default function SelectStorePage() {
   }
 
   // Handle search form submit
-  function handleSearch() {
+  function handleSearch(e: React.FormEvent) {
+    e.preventDefault();
     fetchStores();
+    setSearch(s => ({ ...s, page: 1 }));
   }
 
   // Handle pagination
