@@ -5,7 +5,7 @@ import { db } from "@/db";
 export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
-    async sendResetPassword(data, request) {
+    async sendResetPassword() {
       // Send an email to the user with a link to reset their password
     },
   },

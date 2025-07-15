@@ -3,7 +3,6 @@
 import { GalleryVerticalEnd } from "lucide-react"
 
 import { LoginForm } from "@/components/ui/login-form"
-import { SignUp } from "@/components/ui/sign-up"
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 

@@ -64,9 +64,11 @@ export function LoginForm({
               },
               {
                 onRequest: (ctx) => {
+                  void ctx;
                   setLoading(true);
                 },
                 onResponse: (ctx) => {
+                  void ctx;
                   setLoading(false);
                 },
               }

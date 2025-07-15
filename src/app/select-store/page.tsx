@@ -31,7 +31,7 @@ export default function SelectStorePage() {
   async function fetchStores() {
     setLoading(true);
     setError(null);
-    let query = [];
+    const query = [];
     if (searchValue) {
       if (/^\d{5}$/.test(searchValue.trim())) {
         // Looks like a zip code
@@ -52,14 +52,14 @@ export default function SelectStorePage() {
       setTotal(data.meta?.pagination?.total || null);
     } catch (e) {
       setError("Failed to fetch stores");
+      console.error(e);
     } finally {
       setLoading(false);
     }
   }
 
   // Handle search form submit
-  function handleSearch(e: React.FormEvent) {
-    e.preventDefault();
+  function handleSearch() {
     fetchStores();
   }
 

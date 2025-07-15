@@ -4,7 +4,6 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useSession } from "@/lib/auth-client";
 import React, { useState, useEffect } from "react";
 import ClientLayout from "@/components/ui/client-layout";
 import { useRouter } from "next/navigation";
@@ -19,22 +18,11 @@ type Product = ProductComponents["schemas"]["products.productModel"];
 type ShoppingListItem = Product & { quantity: number };
 
 export default function ShoppingListPage() {
-  const [stores, setStores] = useState<Store[]>([]);
   const [selectedStore, setSelectedStore] = useState<Store | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [shoppingList, setShoppingList] = useState<ShoppingListItem[]>([]);
-  const { data: session } = useSession();
   const router = useRouter();
-
-  // Fetch stores on mount (example: fetch all, or by zip code)
-  useEffect(() => {
-    fetch("/api/proxy/locations")
-      .then(res => res.json())
-      .then(data => {
-        setStores(data.data || []);
-      });
-  }, []);
 
   // On mount, read selected store from localStorage
   useEffect(() => {
