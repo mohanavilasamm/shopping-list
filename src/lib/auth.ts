@@ -10,18 +10,18 @@ export const auth = betterAuth({
       // Send an email to the user with a link to reset their password
     },
   },
-  socialProviders: {
-    google: {
-      clientId: process.env.GOOGLE_CLIENT_ID!,
+  // socialProviders: {
+  //   google: {
+  //     clientId: process.env.GOOGLE_CLIENT_ID!,
 
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    },
-    github: {
-      clientId: process.env.GITHUB_CLIENT_ID!,
+  //     clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+  //   },
+  //   github: {
+  //     clientId: process.env.GITHUB_CLIENT_ID!,
 
-      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-    },
-  },
+  //     clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+  //   },
+  // },
   database: drizzleAdapter(db, {
     provider: "sqlite",
   }),
