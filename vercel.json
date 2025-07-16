@@ -9,7 +9,12 @@
     {
       "source": "/(.*)",
       "destination": "https://www.shopease.dev/$1",
-      "has": [],
+      "has": [
+        {
+          "type": "host",
+          "value": "shopease.dev"
+        }
+      ],
       "permanent": true
     }
   ]
