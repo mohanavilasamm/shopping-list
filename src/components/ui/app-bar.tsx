@@ -2,10 +2,12 @@
 
 import { useSession, signOut } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export function AppBar() {
   const { data: session } = useSession();
   const user = session?.user;
+  const router = useRouter();
 
   return (
     <header className="w-full flex items-center justify-end gap-4 px-6 py-3 bg-black text-primary-foreground">
@@ -24,7 +26,15 @@ export function AppBar() {
         </span>
       </span>
       {user ? (
-        <Button size="sm" variant="outline" onClick={() => signOut()}>
+        <Button
+          size="sm"
+          variant="ghost"
+          className="hover:bg-gray-700"
+          onClick={async () => {
+            await signOut();
+            router.push("/");
+          }}
+        >
           Sign Out
         </Button>
       ) : null}
