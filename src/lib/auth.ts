@@ -3,6 +3,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/db";
 
 export const auth = betterAuth({
+  origin: process.env.AUTH_ORIGIN!,
   emailAndPassword: {
     enabled: true,
     async sendResetPassword() {
