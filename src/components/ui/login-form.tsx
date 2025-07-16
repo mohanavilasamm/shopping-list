@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { signIn } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export function LoginForm({
   className,
@@ -14,6 +15,7 @@ export function LoginForm({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   return (
     <form className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
@@ -71,6 +73,9 @@ export function LoginForm({
                   void ctx;
                   setLoading(false);
                 },
+                onSuccess: async () => {
+                  router.push("/shopping-list");
+                },
               }
             );
           }}
@@ -94,7 +99,7 @@ export function LoginForm({
       </div>
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
-        <a href="#" className="underline underline-offset-4">
+        <a href="/sign-up" className="underline underline-offset-4">
           Sign up
         </a>
       </div>
