@@ -63,12 +63,12 @@ export default function ShoppingListPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <ClientLayout>
-        <div className="flex-1 relative w-full max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-5xl mx-auto py-10 flex flex-col gap-8">
-          {/* Black background strip, extends halfway down the Store card */}
+        <div className="flex-1 relative">
+          {/* Black background strip, extends halfway down */}
           <div className="absolute top-0 left-0 w-full h-40 bg-black z-0" />
-          <div className="relative z-10 pt-20">
+          <div className="relative z-10 max-w-2xl mx-auto pt-32 pb-10 gap-8">
             {/* Store Card */}
-            <Card className="w-full -mt-8 shadow-lg">
+            <Card className="w-full -mt-8 shadow-lg mb-8">
               <CardHeader>
                 <CardTitle>
                   {selectedStore ? `Store: ${selectedStore.name}` : "Select a Store"}
@@ -81,7 +81,7 @@ export default function ShoppingListPage() {
 
             {/* Product Search/Input */}
             {selectedStore && (
-              <Card className="w-full">
+              <Card className="w-full mt-4">
                 <CardHeader>
                   <CardTitle>Add Product</CardTitle>
                 </CardHeader>
@@ -108,15 +108,31 @@ export default function ShoppingListPage() {
                     {/* Show search results */}
                     {searchResults.length > 0 && (
                       <div className="border rounded bg-background mt-2 max-h-48 overflow-y-auto">
-                        {searchResults.map(product => (
-                          <div
-                            key={product.productId}
-                            className="p-2 hover:bg-muted cursor-pointer"
-                            onClick={() => addProduct(product)}
-                          >
-                            {product.description} {product.brand && <span className="text-xs text-muted-foreground">({product.brand})</span>}
-                          </div>
-                        ))}
+                        {searchResults.map(product => {
+                            // Find the first image URL (front/medium preferred)
+                            let imgUrl = undefined;
+                            if (product.images && product.images.length > 0) {
+                              const front = product.images.find(img => img.perspective === "front") || product.images[0];
+                              if (front.sizes && front.sizes.length > 0) {
+                                const medium = front.sizes.find(s => s.size === "medium") || front.sizes[0];
+                                imgUrl = medium.url;
+                              }
+                            }
+                            return (
+                              <div
+                                key={product.productId}
+                                className="p-2 hover:bg-muted cursor-pointer flex items-center gap-3"
+                                onClick={() => addProduct(product)}
+                              >
+                                {imgUrl && (
+                                  <img src={imgUrl} alt={product.description} className="w-12 h-12 object-contain rounded bg-white border" />
+                                )}
+                                <span>
+                                  {product.description} {product.brand && <span className="text-xs text-muted-foreground">({product.brand})</span>}
+                                </span>
+                              </div>
+                            );
+                          })}
                       </div>
                     )}
                     <Button type="submit">Add</Button>
@@ -126,7 +142,7 @@ export default function ShoppingListPage() {
             )}
 
             {/* Shopping List */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 mt-6">
               {shoppingList.length === 0 ? (
                 <p className="text-muted-foreground text-center">No items in your shopping list.</p>
               ) : (

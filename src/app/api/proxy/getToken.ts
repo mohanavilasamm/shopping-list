@@ -8,7 +8,7 @@ export async function getApiToken() {
       grant_type: "client_credentials",
       client_id: process.env.API_CLIENT_ID!,
       client_secret: process.env.API_CLIENT_SECRET!,
-      // Add scope if needed, e.g. scope: process.env.API_SCOPE || undefined
+      ...(process.env.API_SCOPE ? { scope: process.env.API_SCOPE } : {}),
     }),
   });
   if (!res.ok) throw new Error("Failed to get access token");
