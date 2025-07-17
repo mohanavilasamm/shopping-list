@@ -125,17 +125,21 @@ export default function ShoppingListPage() {
                                 className="p-2 hover:bg-muted cursor-pointer flex items-center gap-3"
                                 onClick={() => addProduct(product)}
                               >
-                                {imgUrl && (
-                                  <div className="h-12 w-12 relative">
-                                    <Image
-                                      src={imgUrl || "/placeholder-product.png"}
-                                      alt={product.description || "Product image"}
-                                      fill
-                                      className="object-contain rounded bg-white border"
-                                      unoptimized={!imgUrl}
-                                    />
-                                  </div>
-                                )}
+                                <div className="h-12 w-12 relative flex-shrink-0">
+                                  <Image
+                                    src={imgUrl || "/placeholder-product.png"}
+                                    alt={product.description || "Product image"}
+                                    width={48}
+                                    height={48}
+                                    className="object-contain rounded bg-white border p-1"
+                                    unoptimized={true} // Disable Next.js image optimization for external URLs
+                                    onError={(e) => {
+                                      // Fallback to placeholder if image fails to load
+                                      const target = e.target as HTMLImageElement;
+                                      target.src = '/placeholder-product.png';
+                                    }}
+                                  />
+                                </div>
                                 <span>
                                   {product.description} {product.brand && <span className="text-xs text-muted-foreground">({product.brand})</span>}
                                 </span>
