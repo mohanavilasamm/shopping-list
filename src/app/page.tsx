@@ -1,6 +1,7 @@
 "use client";
 
 import { GalleryVerticalEnd } from "lucide-react"
+import Image from "next/image"
 
 import { LoginForm } from "@/components/ui/login-form"
 import { useRouter } from "next/navigation";
@@ -34,11 +35,14 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-      <div className="relative hidden bg-muted lg:block">
-        <img
+      <div className="relative hidden h-full w-full bg-muted lg:block">
+        <Image
           src="/login.jpg"
-          alt="Image"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          alt="Background"
+          fill
+          priority
+          className="object-cover dark:brightness-[0.2] dark:grayscale"
+          sizes="(max-width: 768px) 100vw, 50vw"
         />
       </div>
     </div>

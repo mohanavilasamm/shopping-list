@@ -2,6 +2,7 @@
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import React, { useState, useEffect } from "react";
@@ -125,7 +126,15 @@ export default function ShoppingListPage() {
                                 onClick={() => addProduct(product)}
                               >
                                 {imgUrl && (
-                                  <img src={imgUrl} alt={product.description} className="w-12 h-12 object-contain rounded bg-white border" />
+                                  <div className="h-12 w-12 relative">
+                                    <Image
+                                      src={imgUrl || "/placeholder-product.png"}
+                                      alt={product.description || "Product image"}
+                                      fill
+                                      className="object-contain rounded bg-white border"
+                                      unoptimized={!imgUrl}
+                                    />
+                                  </div>
                                 )}
                                 <span>
                                   {product.description} {product.brand && <span className="text-xs text-muted-foreground">({product.brand})</span>}

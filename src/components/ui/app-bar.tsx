@@ -2,6 +2,7 @@
 
 import { useSession, signOut } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export function AppBar() {
@@ -13,10 +14,13 @@ export function AppBar() {
     <header className="w-full flex items-center justify-end gap-4 px-6 py-3 bg-black text-primary-foreground">
       <span className="flex items-center gap-2">
         {user?.image ? (
-          <img
-            src={user.image}
-            alt={user.name || "User"}
-            className="w-8 h-8 rounded-full border"
+          <Image 
+            src={user.image} 
+            alt={user.name || "User"} 
+            width={32}
+            height={32}
+            className="h-8 w-8 rounded-full border"
+            priority
           />
         ) : (
           <div className="w-8 h-8 rounded-full border bg-muted" />
